@@ -1,0 +1,75 @@
+# include<iostream>
+#include <map>
+using namespace std;
+
+void createOrEditBirthday(map<string, string>& birthdays)
+{
+    string name, date;
+    cout << "Enter the name: ";
+    cin >> name;
+    cout << "Enter the birthday date (DD/MM/YYYY): ";
+    cin >> date;
+    birthdays[name] = date;
+    cout << "Birthday date added/updated successfully!" << endl;
+}
+
+void displayBirthdays(const map<string, string>& birthdays)
+{
+    if (birthdays.empty()) {
+        cout << "No birthdays found!" << endl;
+    } else {
+        cout << "Birthday dates:" << endl;
+        for (const auto& pair : birthdays) {
+            cout << pair.first << ": " << pair.second << endl;
+        }
+    }
+}
+void searchBirthday(const map<string, string>& birthdays)
+{
+    string name;
+    cout << "Enter the name to search: ";
+    cin >> name;
+    auto it = birthdays.find(name);
+    if (it != birthdays.end()) {
+        cout << name << ": " << it->second << endl;
+    } else {
+        cout << "No birthday found for " << name << endl;
+    }
+}
+
+int main()
+{
+    map<string, string> birthdays;
+    int choice;
+    
+    do {
+        cout << "Birthday Management System" << endl;
+        cout << "1. Create or Edit a Birthday" << endl;
+        cout << "2. Display All Birthdays" << endl;
+        cout << "3. Search Birthday by Name" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                createOrEditBirthday(birthdays);
+                break;
+            case 2:
+                displayBirthdays(birthdays);
+                break;
+            case 3:
+                searchBirthday(birthdays);
+                break;
+            case 4:
+                cout << "Exiting..." << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please try again." << endl;
+        }
+        
+        cout << endl;
+    } while (choice != 4);
+
+    return 0;
+}
